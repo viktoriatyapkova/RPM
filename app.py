@@ -432,6 +432,9 @@ def update_user(user_id) -> str:
 
 
 with app.app_context():
+    db.create_all()
+
+with app.app_context():
     if not Movie.query.all():
         movies = [
             get_movie_info(ID_FILM1),

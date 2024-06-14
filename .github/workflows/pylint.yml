@@ -26,31 +26,18 @@ jobs:
             POSTGRES_PASSWORD: admin
             POSTGRES_DBNAME: postgres
             POSTGRES_USER: viktoria
-            POSTGRES_PORT: 2206
+            POSTGRES_PORT: 5555
             POSTGRES_HOST: 127.0.0.1
             FLASK_PORT: 5000
         run: |
-          PGPASSWORD=admin psql -h 127.0.0.1 -p 2206 -d postgres -U viktoria  
           python3 -m pip install --upgrade pip
-          pip install -r tests/requirements.txt
+          pip install -r requirements.txt
           python3 -m pip install pytest
           pip install gunicorn
           python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
-          ping 127.0.0.1
           pytest test.py
-      - name: Dependencies install and test webapp
-        env:
-            POSTGRES_PASSWORD: admin
-            POSTGRES_DBNAME: postgres
-            POSTGRES_USER: viktoria
-            POSTGRES_PORT: 2206
-            POSTGRES_HOST: 127.0.0.1
-            FLASK_PORT: 5001
-        run: |
-          python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
-          pytest test.py
-          
-  linter_api_and_tests:
+
+  linter:
     name: linter hw
     runs-on: ubuntu-latest
     steps:
