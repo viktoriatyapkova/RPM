@@ -35,6 +35,7 @@ jobs:
           python3 -m pip install pytest
           pip install gunicorn
           python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
+          ping 127.0.0.1 -c 4
           pytest test.py
 
   linter:
