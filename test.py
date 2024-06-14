@@ -67,7 +67,6 @@ def client(app_with_db: tuple) -> FlaskClient:
     return app.test_client()
 
 
-
 def test_get_movie(client: Flask) -> None:
     """Тест для получения информации о конкретном фильме.
 
